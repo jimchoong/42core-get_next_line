@@ -20,9 +20,9 @@ Three parts in this code-
 2. If no errors, read from file and store in temporary buffer with read_line(...)
 3. Once reading is completed, process the line in the buffer and return output with make_line(...)
 
-Part 1 done in get_next_line(...)
-Part 2 done by read_line(int fd, char \*buff, char \*s)
-Part 3 done by make_line(char **, char \*s)
+- Part 1 done in get_next_line(...)
+- Part 2 done with read_line(int fd, char \*buff, char \*s)
+- Part 3 done with make_line(char **, char \*s)
 
 Bonus
 ----------------------------------------------------
