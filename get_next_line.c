@@ -15,23 +15,30 @@ void	read_line(int fd, char *buff, char **s)
 	ssize_t	i;
 	char	*tmp;
 
+	// first read from file
 	i = read(fd, buff, BUFFER_SIZE);
 	while (i > 0)
 	{
 		// end the line read with \0 char		
 		buff[i] = 0;
+		// first copy if nothing stored in *s
 		if (!*s)
 			*s = ft_substr(buff, 0, i);
+		// if *s is not empty, join with what is read in buff
 		else
 		{
 			tmp = *s;
 			*s = ft_strjoin(tmp, buff);
 			free(tmp);
 		}
+		// once copy done, search for \n in *s
+		// if found, exit loop
 		if (ft_strchr(buff, '\n'))
 			break ;
+		// if not found, read again from file
 		i = read(fd, buff, BUFFER_SIZE);
 	}
+	// once line with \n is read, buff not needed and freed
 	free(buff);
 }
 
@@ -50,11 +57,13 @@ int	make_line(char **line, char **s)
 	size_t	eol_idx;
 	char	*tmp;
 
+	// first case: file is empty, so *s is NULL
 	if (!*s)
 	{
 		*line = ft_substr("", 0, 0);
 		return (0);
 	}
+	// second case: only one line in file, no \n found
 	else if (!ft_strchr(*s, '\n'))
 	{
 		*line = ft_substr(*s, 0, ft_strlen(*s));
@@ -62,6 +71,7 @@ int	make_line(char **line, char **s)
 		*s = NULL;
 		return (0);
 	}
+	// third case: found a line
 	else
 	{
 		eol_idx = ft_strchr(*s, '\n') - *s;
